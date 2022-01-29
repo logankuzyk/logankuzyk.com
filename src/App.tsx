@@ -1,20 +1,14 @@
 import React from "react";
-import { ChakraProvider, Box, Grid, theme } from "@chakra-ui/react";
+import { ChakraProvider, Flex, theme } from "@chakra-ui/react";
 
-import { Navigation } from "./components/Navigation";
+import { Header } from "./components/Header";
 import { Content } from "./components/Content";
 
 export const App = () => (
   <ChakraProvider theme={theme}>
-    <Box
-      display="flex"
-      flexDirection="row"
-      flexWrap="wrap"
-      flexShrink={0}
-      maxWidth={"100vw"}
-    >
-      <Navigation />
+    <Header />
+    <Flex flexDirection="column" paddingX={400}>
       <Content />
-    </Box>
+    </Flex>
   </ChakraProvider>
 );
