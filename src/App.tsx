@@ -1,27 +1,18 @@
-import React, { useCallback, useRef } from "react";
-import { ChakraProvider, Flex } from "@chakra-ui/react";
+import React from "react";
+import { ChakraProvider } from "@chakra-ui/react";
 
+import { NavigationProvider } from "./NavigationContext";
 import { theme } from "./theme";
 import { Navigation } from "./components/Navigation";
 import { Header } from "./components/Header";
 import { Content } from "./components/Content";
 
-export const App = () => {
-  const contentRef = useRef<HTMLDivElement>(null);
-  const handleViewMore = useCallback(() => {
-    console.log(contentRef.current);
-    if (contentRef && contentRef.current) {
-      contentRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, []);
-
-  return (
-    <ChakraProvider theme={theme}>
+export const App: React.FC = () => (
+  <ChakraProvider theme={theme}>
+    <NavigationProvider>
       <Navigation />
-      <Header handleViewMore={handleViewMore} />
-      <Flex ref={contentRef}>
-        <Content />
-      </Flex>
-    </ChakraProvider>
-  );
-};
+      <Header />
+      <Content />
+    </NavigationProvider>
+  </ChakraProvider>
+);
