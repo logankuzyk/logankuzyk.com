@@ -7,9 +7,10 @@ import {
   DrawerContent,
   DrawerCloseButton,
   useDisclosure,
-  Box,
   IconButton,
   Button,
+  Flex,
+  Text,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 
@@ -33,16 +34,41 @@ export const Navigation: React.FC = () => {
   }, [handleScroll]);
 
   return (
-    <Box position="fixed" zIndex={1} padding={4}>
-      <IconButton
-        _hover={{ color: isAboveImage ? "gray.300" : "gray.700" }}
-        _active={{ color: isAboveImage ? "gray.500" : "gray.500" }}
-        onClick={onOpen}
-        variant="ghost"
-        color={isAboveImage ? "gray.100" : "gray.900"}
-        aria-label="Open drawer"
-        icon={<HamburgerIcon fontSize={iconHeight} />}
-      />
+    <Flex
+      transition="all 0.5s ease"
+      position="fixed"
+      padding={4}
+      width="100vw"
+      bg={isAboveImage ? "rgba(0,0,0,0)" : "gray.100"}
+      zIndex={1}
+      boxShadow={isAboveImage ? "" : "xl"}
+    >
+      <Flex
+        flexDirection="row"
+        alignItems="center"
+        justifyContent="space-between"
+        width="100%"
+      >
+        <IconButton
+          display="flex"
+          _hover={{ color: isAboveImage ? "gray.300" : "gray.700" }}
+          _active={{ color: isAboveImage ? "gray.500" : "gray.500" }}
+          onClick={onOpen}
+          variant="ghost"
+          color={isAboveImage ? "gray.100" : "gray.900"}
+          aria-label="Open drawer"
+          icon={<HamburgerIcon fontSize={iconHeight} />}
+          zIndex={2}
+        />
+        <Text
+          display="flex"
+          color={isAboveImage ? "rgba(0,0,0,0)" : "gray.900"}
+          fontSize="xl"
+          fontWeight="semibold"
+        >
+          Logan Kuzyk
+        </Text>
+      </Flex>
       <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent>
@@ -64,6 +90,6 @@ export const Navigation: React.FC = () => {
           </DrawerBody>
         </DrawerContent>
       </Drawer>
-    </Box>
+    </Flex>
   );
 };
