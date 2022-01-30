@@ -9,12 +9,15 @@ import {
   useDisclosure,
   Box,
   IconButton,
-  Text,
+  Button,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 
+import { useNavigationContext } from "../NavigationContext";
+
 export const Navigation: React.FC = () => {
   const iconHeight = 48;
+  const { scrollTo } = useNavigationContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isAboveImage, setIsAboveImage] = useState<boolean>(true);
   const handleScroll = useCallback(() => {
@@ -45,11 +48,19 @@ export const Navigation: React.FC = () => {
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader>Navigation</DrawerHeader>
-          <DrawerBody>
-            <Text>Projects</Text>
-            <Text>Experience</Text>
-            <Text>Skills</Text>
-            <Text>Contact</Text>
+          <DrawerBody display="flex" flexDirection="column">
+            <Button marginBottom={4} onClick={() => scrollTo("projects")}>
+              Projects
+            </Button>
+            <Button marginBottom={4} onClick={() => scrollTo("experience")}>
+              Experience
+            </Button>
+            <Button marginBottom={4} onClick={() => scrollTo("skills")}>
+              Skills
+            </Button>
+            <Button marginBottom={4} onClick={() => scrollTo("connect")}>
+              Contact
+            </Button>
           </DrawerBody>
         </DrawerContent>
       </Drawer>
