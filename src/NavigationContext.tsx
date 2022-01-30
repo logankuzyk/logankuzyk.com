@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useRef, useCallback } from "react";
+import React, {
+  createContext,
+  useContext,
+  useRef,
+  useCallback,
+  useMemo,
+} from "react";
 
 export type SectionRef = React.MutableRefObject<HTMLDivElement | null> | null;
 
@@ -31,13 +37,21 @@ export const useNavigationContext = () => {
 };
 
 export const NavigationProvider: React.FC = ({ children }) => {
-  const refs = {
-    content: useRef<HTMLDivElement>(null),
-    projects: useRef<HTMLDivElement>(null),
-    experience: useRef<HTMLDivElement>(null),
-    skills: useRef<HTMLDivElement>(null),
-    connect: useRef<HTMLDivElement>(null),
-  };
+  const content = useRef<HTMLDivElement>(null);
+  const projects = useRef<HTMLDivElement>(null);
+  const experience = useRef<HTMLDivElement>(null);
+  const skills = useRef<HTMLDivElement>(null);
+  const connect = useRef<HTMLDivElement>(null);
+
+  const refs = useMemo(() => {
+    return {
+      content,
+      projects,
+      experience,
+      skills,
+      connect,
+    };
+  }, [content, projects, experience, skills, connect]);
 
   const scrollTo = useCallback(
     (section: keyof Refs) => {
