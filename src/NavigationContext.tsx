@@ -39,12 +39,15 @@ export const NavigationProvider: React.FC = ({ children }) => {
     connect: useRef<HTMLDivElement>(null),
   };
 
-  const scrollTo = useCallback((section: keyof Refs) => {
-    const ref = refs[section];
-    if (ref && ref.current) {
-      ref.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, []);
+  const scrollTo = useCallback(
+    (section: keyof Refs) => {
+      const ref = refs[section];
+      if (ref && ref.current) {
+        ref.current.scrollIntoView({ behavior: "smooth" });
+      }
+    },
+    [refs]
+  );
 
   return (
     <NavigationContext.Provider value={{ refs, scrollTo }}>

@@ -8,7 +8,7 @@ export const Header: React.FC = () => {
   const { scrollTo } = useNavigationContext();
   const handleViewMore = useCallback(() => {
     scrollTo("content");
-  }, []);
+  }, [scrollTo]);
 
   return (
     <Background handleViewMore={handleViewMore}>
