@@ -13,23 +13,21 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 
-interface NavigationProps {}
-
-export const Navigation: React.FC<NavigationProps> = ({}) => {
+export const Navigation: React.FC = () => {
   const iconHeight = 48;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isAboveImage, setIsAboveImage] = useState<boolean>(true);
   const handleScroll = useCallback(() => {
-    if (window.scrollY - iconHeight >= window.innerHeight) {
+    if (window.scrollY >= window.innerHeight) {
       setIsAboveImage(false);
     } else {
       setIsAboveImage(true);
     }
-  }, [window.scrollY, window.innerHeight, iconHeight]);
+  }, []);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-  }, []);
+  }, [handleScroll]);
 
   return (
     <Box position="fixed" zIndex={1} padding={4}>
