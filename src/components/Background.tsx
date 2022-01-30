@@ -1,13 +1,18 @@
 import React from "react";
-import { Flex } from "@chakra-ui/react";
+import { Button, Flex, Text } from "@chakra-ui/react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 
 import { BackgroundImage } from "./BackgroundImage";
 
 interface BackgroundProps {
   children: React.ReactNode;
+  handleViewMore: () => void;
 }
 
-export const Background: React.FC<BackgroundProps> = ({ children }) => {
+export const Background: React.FC<BackgroundProps> = ({
+  children,
+  handleViewMore,
+}) => {
   return (
     <Flex alignContent="center" justifyContent="center" overflow="hidden">
       {/* Image container */}
@@ -28,7 +33,7 @@ export const Background: React.FC<BackgroundProps> = ({ children }) => {
           position="absolute"
           justifyContent="center"
           flexDirection="column"
-          bg="rgba(0, 0, 0, 0.4)"
+          bg="rgba(0, 0, 0, 0.5)"
         >
           {/* Content container */}
           <Flex
@@ -39,6 +44,26 @@ export const Background: React.FC<BackgroundProps> = ({ children }) => {
           >
             {children}
           </Flex>
+          <Button
+            position="absolute"
+            display="flex"
+            alignSelf="center"
+            variant="ghost"
+            bottom={4}
+            _hover={{ color: "gray.300" }}
+            _active={{ color: "gray.500" }}
+            color={"gray.100"}
+            onClick={handleViewMore}
+          >
+            <Flex
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Text>View more</Text>
+              <ChevronDownIcon />
+            </Flex>
+          </Button>
         </Flex>
       </Flex>
     </Flex>
