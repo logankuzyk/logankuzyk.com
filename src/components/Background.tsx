@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Button, Flex, Text } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 
@@ -13,10 +13,12 @@ export const Background: React.FC<BackgroundProps> = ({
   children,
   handleViewMore,
 }) => {
+  const height = useMemo(() => window.innerHeight, []);
+
   return (
     <Flex
       alignContent="center"
-      boxShadow="dark-lg"
+      boxShadow="xl"
       position="relative"
       justifyContent="center"
       overflow="hidden"
@@ -29,7 +31,7 @@ export const Background: React.FC<BackgroundProps> = ({
         justifyContent="center"
         alignItems="center"
         top={0}
-        height="100vh"
+        height={height}
       >
         {/* Background image */}
         <BackgroundImage />
