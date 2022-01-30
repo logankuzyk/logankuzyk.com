@@ -14,7 +14,14 @@ export const Background: React.FC<BackgroundProps> = ({
   handleViewMore,
 }) => {
   return (
-    <Flex alignContent="center" justifyContent="center" overflow="hidden">
+    <Flex
+      alignContent="center"
+      boxShadow="dark-lg"
+      position="relative"
+      justifyContent="center"
+      overflow="hidden"
+      marginBottom={8}
+    >
       {/* Image container */}
       <Flex
         position="relative"
