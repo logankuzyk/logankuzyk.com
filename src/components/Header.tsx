@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Image, Text, Flex } from "@chakra-ui/react";
 
+import { useNavigationContext } from "../NavigationContext";
 import { Background } from "./Background";
 
-interface HeaderProps {
-  handleViewMore: () => void;
-}
+export const Header: React.FC = () => {
+  const { scrollTo } = useNavigationContext();
+  const handleViewMore = useCallback(() => {
+    scrollTo("content");
+  }, []);
 
-export const Header: React.FC<HeaderProps> = ({ handleViewMore }) => {
   return (
     <Background handleViewMore={handleViewMore}>
       <Flex flexDirection="column" padding={12} textAlign="center">
