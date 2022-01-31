@@ -40,7 +40,7 @@ export const Navigation: React.FC = () => {
     } else {
       setIsAboveImage(true);
     }
-  }, [lastScrollPosition]);
+  }, [lastScrollPosition, isAboveImage]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
