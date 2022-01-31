@@ -30,7 +30,7 @@ export const Header: React.FC = () => {
           src="https://github.com/logankuzyk.png"
           alt="Logan's GitHub profile picture."
           borderRadius="full"
-          htmlWidth={192}
+          htmlWidth={144}
         />
       </Flex>
     </Background>
