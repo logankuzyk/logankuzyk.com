@@ -1,8 +1,9 @@
 import React from "react";
 import { Flex, Text, Heading } from "@chakra-ui/react";
 
-import { useNavigationContext } from "../NavigationContext";
+import { useNavigationContext } from "../../NavigationContext";
 import { Section } from "./Section";
+import { Projects } from "./Projects";
 
 export const Content: React.FC = () => {
   const {
@@ -15,19 +16,11 @@ export const Content: React.FC = () => {
       alignItems="left"
       justifyContent="center"
       flexDirection="column"
+      padding={18}
     >
       <Section>
         <Heading ref={projects}>Projects</Heading>
-        <Text>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          semper ornare metus non ultrices. Sed nisl lorem, varius nec blandit
-          nec, sagittis sit amet nunc. Suspendisse potenti. Aenean cursus nisi a
-          laoreet tincidunt. Nulla tempus eget justo viverra facilisis. Maecenas
-          vehicula feugiat elit, molestie semper nisi tempor pellentesque. Ut
-          accumsan hendrerit interdum. Aenean lacus nunc, tempor interdum
-          hendrerit id, convallis vitae ex. Mauris sit amet purus consectetur,
-          tempus est in, cursus mi. Nunc sed dui a velit tempus rutrum. Nullam
-        </Text>
+        <Projects />
       </Section>
       <Section>
         <Heading ref={experience}>Experience</Heading>

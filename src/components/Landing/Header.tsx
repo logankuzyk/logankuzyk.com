@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { Image, Text, Flex } from "@chakra-ui/react";
 
-import { useNavigationContext } from "../NavigationContext";
+import { useNavigationContext } from "../../NavigationContext";
 import { Background } from "./Background";
 
 export const Header: React.FC = () => {

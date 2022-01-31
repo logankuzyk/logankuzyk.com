@@ -1,14 +1,14 @@
 import React, { useMemo } from "react";
 import { Image, Flex } from "@chakra-ui/react";
 
-import tusk from "../assets/images/tusk.jpg";
-import creek from "../assets/images/creek.jpg";
-import elk from "../assets/images/elk.jpg";
-import meadow from "../assets/images/meadow.jpg";
-import strath from "../assets/images/strath.jpg";
-import summer from "../assets/images/summer.jpg";
-import sombrio from "../assets/images/sombrio.jpg";
-import capescott from "../assets/images/capescott.jpg";
+import tusk from "../../assets/images/tusk.jpg";
+import creek from "../../assets/images/creek.jpg";
+import elk from "../../assets/images/elk.jpg";
+import meadow from "../../assets/images/meadow.jpg";
+import strath from "../../assets/images/strath.jpg";
+import summer from "../../assets/images/summer.jpg";
+import sombrio from "../../assets/images/sombrio.jpg";
+import capescott from "../../assets/images/capescott.jpg";
 
 type ImageMetadata = {
   description: string;

@@ -22,7 +22,6 @@ export const Background: React.FC<BackgroundProps> = ({
       position="relative"
       justifyContent="center"
       overflow="hidden"
-      marginBottom={8}
     >
       {/* Image container */}
       <Flex
