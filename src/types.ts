@@ -116,7 +116,9 @@ export interface Project {
   title: string;
   description: string;
   repoName: string;
+  mainTech: string[];
   link?: string;
+  image?: string;
 }
 
 export interface Languages {
