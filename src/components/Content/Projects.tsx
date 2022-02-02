@@ -38,9 +38,9 @@ export const Projects: React.FC = () => {
 
   return (
     <Flex>
-      <SimpleGrid columns={2} spacing={6} flexWrap="wrap">
+      <SimpleGrid columns={[1, 1, 1, 2]} spacing={6} flexWrap="wrap">
         {projects.map((project) => (
-          <ProjectCard {...project} />
+          <ProjectCard key={project.repoName} {...project} />
         ))}
       </SimpleGrid>
     </Flex>

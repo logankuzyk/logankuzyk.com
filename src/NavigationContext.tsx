@@ -67,7 +67,6 @@ export const NavigationProvider: React.FC = ({ children }) => {
 
   const scrollToContent = useCallback(() => {
     const navBarHeight = navigation.current?.clientHeight || 0;
-    console.log({ navBarHeight });
     const y = window.innerHeight - navBarHeight;
     window.scrollTo({ top: y, behavior: "smooth" });
   }, [navigation]);
