@@ -7,12 +7,11 @@ import { Projects } from "./Projects";
 
 export const Content: React.FC = () => {
   const {
-    refs: { content, projects, experience, skills, connect },
+    refs: { projects, experience, skills, connect },
   } = useNavigationContext();
 
   return (
     <Flex
-      ref={content}
       alignItems="left"
       justifyContent="center"
       flexDirection="column"

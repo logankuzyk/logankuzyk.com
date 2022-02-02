@@ -19,7 +19,10 @@ import { useNavigationContext } from "../NavigationContext";
 
 export const Navigation: React.FC = () => {
   const iconHeight = 48;
-  const { scrollTo } = useNavigationContext();
+  const {
+    refs: { navigation },
+    scrollTo,
+  } = useNavigationContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isAboveImage, setIsAboveImage] = useState<boolean>(true);
   const [showNavbar, setShowNavbar] = useState<boolean>(true);
@@ -49,6 +52,7 @@ export const Navigation: React.FC = () => {
   return (
     <Collapse in={showNavbar}>
       <Flex
+        ref={navigation}
         transition="all 0.5s ease"
         position="fixed"
         padding={4}

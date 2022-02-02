@@ -3,17 +3,15 @@ import { Button, Flex, Text } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 
 import { BackgroundImage } from "./BackgroundImage";
+import { useNavigationContext } from "../../NavigationContext";
 
 interface BackgroundProps {
   children: React.ReactNode;
-  handleViewMore: () => void;
 }
 
-export const Background: React.FC<BackgroundProps> = ({
-  children,
-  handleViewMore,
-}) => {
+export const Background: React.FC<BackgroundProps> = ({ children }) => {
   const height = useMemo(() => window.innerHeight, []);
+  const { scrollToContent } = useNavigationContext();
 
   return (
     <Flex
@@ -61,14 +59,14 @@ export const Background: React.FC<BackgroundProps> = ({
             _hover={{ color: "gray.300" }}
             _active={{ color: "gray.500" }}
             color={"gray.100"}
-            onClick={handleViewMore}
+            onClick={scrollToContent}
           >
             <Flex
               flexDirection="column"
               justifyContent="center"
               alignItems="center"
             >
-              <Text>View more</Text>
+              <Text>About me</Text>
               <ChevronDownIcon />
             </Flex>
           </Button>
