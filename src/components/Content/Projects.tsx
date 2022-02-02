@@ -17,13 +17,28 @@ export const Projects: React.FC = () => {
         mainTech: ["React", "TypeScript", "Express.js", "Nginx"],
         image: sharedditMacbook,
       },
+      {
+        title: "Gecko for reddit",
+        description:
+          "A cross-platform reddit client written in React Native with a focus on efficient and logical navigation.",
+        repoName: "gecko-for-reddit",
+        mainTech: ["React Native", "TypeScript", "React Query"],
+      },
+      {
+        title: "Discord Assignment Reminder Bot",
+        description:
+          "A Discord bot designed for the UVic Engineering & Computer Science server, to keep track of important dates for each course.",
+        mainTech: ["Node.js", "Discord.js"],
+        repoName: "discord-reminder-bot",
+      },
     ],
+
     []
   );
 
   return (
     <Flex>
-      <SimpleGrid columns={2}>
+      <SimpleGrid columns={2} spacing={6} flexWrap="wrap">
         {projects.map((project) => (
           <ProjectCard {...project} />
         ))}

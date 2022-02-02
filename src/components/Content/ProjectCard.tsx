@@ -27,9 +27,23 @@ export const ProjectCard: React.FC<Project> = ({
         padding={6}
         boxShadow="lg"
         justifyContent="center"
+        flexWrap="wrap"
       >
         <Flex flexDirection="column">
-          <Flex flexDirection="row" alignItems="center" marginBottom={2}>
+          <Flex
+            flexDirection="row"
+            justifyContent="center"
+            marginBottom={2}
+            flexWrap="wrap"
+          >
+            {image ? <Image src={image} width={360} /> : <></>}
+          </Flex>
+          <Flex
+            flexDirection="row"
+            alignItems="center"
+            marginBottom={2}
+            flexWrap="wrap"
+          >
             <Text fontSize="xl" fontWeight="bold">
               {title}
             </Text>
@@ -38,9 +52,7 @@ export const ProjectCard: React.FC<Project> = ({
             ))}
           </Flex>
           <Text>{description}</Text>
-          <Flex flexDirection="row" alignItems="center"></Flex>
         </Flex>
-        {image ? <Image src={image} width={360} /> : <></>}
       </Flex>
     );
   } else {
