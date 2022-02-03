@@ -4,6 +4,7 @@ import { Flex, Text, Heading } from "@chakra-ui/react";
 import { useNavigationContext } from "../../components/NavigationContext";
 import { Section } from "./Section";
 import { Projects } from "../Projects/Projects";
+import { Footer } from "./Footer";
 
 export const Content: React.FC = () => {
   const {
@@ -61,6 +62,7 @@ export const Content: React.FC = () => {
           tempus est in, cursus mi. Nunc sed dui a velit tempus rutrum. Nullam
         </Text>
       </Section>
+      <Footer />
     </Flex>
   );
 };

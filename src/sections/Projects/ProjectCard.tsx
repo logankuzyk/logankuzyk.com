@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Text, Spinner, Image, Link } from "@chakra-ui/react";
+import { Flex, Text, Spinner, Image } from "@chakra-ui/react";
 import GitHubButton from "react-github-btn";
 import { StarIcon } from "@chakra-ui/icons";
 
