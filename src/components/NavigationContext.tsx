@@ -9,9 +9,8 @@ import React, {
 export type SectionRef = React.MutableRefObject<HTMLDivElement | null> | null;
 
 export interface Refs {
-  content: SectionRef;
+  navigation: SectionRef;
   projects: SectionRef;
-  experience: SectionRef;
   skills: SectionRef;
   connect: SectionRef;
 }
@@ -19,17 +18,18 @@ export interface Refs {
 interface NavigationContextValue {
   refs: Refs;
   scrollTo: (section: keyof Refs) => void;
+  scrollToContent: () => void;
 }
 
 export const NavigationContext = createContext<NavigationContextValue>({
   refs: {
-    content: null,
+    navigation: null,
     projects: null,
-    experience: null,
     skills: null,
     connect: null,
   },
   scrollTo: () => {},
+  scrollToContent: () => {},
 });
 
 export const useNavigationContext = () => {
@@ -37,21 +37,19 @@ export const useNavigationContext = () => {
 };
 
 export const NavigationProvider: React.FC = ({ children }) => {
-  const content = useRef<HTMLDivElement>(null);
+  const navigation = useRef<HTMLDivElement>(null);
   const projects = useRef<HTMLDivElement>(null);
-  const experience = useRef<HTMLDivElement>(null);
   const skills = useRef<HTMLDivElement>(null);
   const connect = useRef<HTMLDivElement>(null);
 
   const refs = useMemo(() => {
     return {
-      content,
+      navigation,
       projects,
-      experience,
       skills,
       connect,
     };
-  }, [content, projects, experience, skills, connect]);
+  }, [navigation, projects, skills, connect]);
 
   const scrollTo = useCallback(
     (section: keyof Refs) => {
@@ -63,8 +61,14 @@ export const NavigationProvider: React.FC = ({ children }) => {
     [refs]
   );
 
+  const scrollToContent = useCallback(() => {
+    const navBarHeight = navigation.current?.clientHeight || 0;
+    const y = window.innerHeight - navBarHeight;
+    window.scrollTo({ top: y, behavior: "smooth" });
+  }, [navigation]);
+
   return (
-    <NavigationContext.Provider value={{ refs, scrollTo }}>
+    <NavigationContext.Provider value={{ refs, scrollTo, scrollToContent }}>
       {children}
     </NavigationContext.Provider>
   );
