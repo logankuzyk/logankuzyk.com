@@ -13,7 +13,6 @@ export const Chip: React.FC<ChipProps> = ({ children }) => {
       padding={2}
       justifyContent="center"
       alignItems="center"
-      marginLeft={2}
     >
       <Text color="gray.700" fontSize="xs">
         {children}
