@@ -124,3 +124,10 @@ export interface Project {
 export interface Languages {
   [key: string]: number;
 }
+
+export interface Skill {
+  title: string;
+  description: string;
+  image?: string;
+  type: string;
+}

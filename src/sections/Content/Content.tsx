@@ -5,8 +5,7 @@ import { useNavigationContext } from "../../components/NavigationContext";
 import { Section } from "./Section";
 import { Projects } from "../Projects/Projects";
 import { Footer } from "./Footer";
-import { Experience } from "./Experience";
-import { Skills } from "./Skills";
+import { Skills } from "../Skills/Skills";
 import { Connect } from "../Connect/Connect";
 
 export const Content: React.FC = () => {
@@ -25,10 +24,6 @@ export const Content: React.FC = () => {
       <Section>
         <Heading ref={projects}>Projects</Heading>
         <Projects />
-      </Section>
-      <Section>
-        <Heading ref={experience}>Experience</Heading>
-        <Experience />
       </Section>
       <Section>
         <Heading ref={skills}>Skills</Heading>
