@@ -15,7 +15,8 @@ export const Content: React.FC = () => {
       alignItems="left"
       justifyContent="center"
       flexDirection="column"
-      padding={18}
+      rowGap={4}
+      padding={[18, 18, 18, 20]}
     >
       <Section>
         <Heading ref={projects}>Projects</Heading>
