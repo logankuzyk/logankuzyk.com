@@ -11,7 +11,6 @@ export type SectionRef = React.MutableRefObject<HTMLDivElement | null> | null;
 export interface Refs {
   navigation: SectionRef;
   projects: SectionRef;
-  experience: SectionRef;
   skills: SectionRef;
   connect: SectionRef;
 }
@@ -26,7 +25,6 @@ export const NavigationContext = createContext<NavigationContextValue>({
   refs: {
     navigation: null,
     projects: null,
-    experience: null,
     skills: null,
     connect: null,
   },
@@ -41,7 +39,6 @@ export const useNavigationContext = () => {
 export const NavigationProvider: React.FC = ({ children }) => {
   const navigation = useRef<HTMLDivElement>(null);
   const projects = useRef<HTMLDivElement>(null);
-  const experience = useRef<HTMLDivElement>(null);
   const skills = useRef<HTMLDivElement>(null);
   const connect = useRef<HTMLDivElement>(null);
 
@@ -49,11 +46,10 @@ export const NavigationProvider: React.FC = ({ children }) => {
     return {
       navigation,
       projects,
-      experience,
       skills,
       connect,
     };
-  }, [navigation, projects, experience, skills, connect]);
+  }, [navigation, projects, skills, connect]);
 
   const scrollTo = useCallback(
     (section: keyof Refs) => {

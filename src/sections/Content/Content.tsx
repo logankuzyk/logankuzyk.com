@@ -10,7 +10,7 @@ import { Connect } from "../Connect/Connect";
 
 export const Content: React.FC = () => {
   const {
-    refs: { projects, experience, skills, connect },
+    refs: { projects, skills, connect },
   } = useNavigationContext();
 
   return (

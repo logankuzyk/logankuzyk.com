@@ -85,9 +85,6 @@ export const Navigation: React.FC = () => {
             <Button marginBottom={4} onClick={() => scrollTo("projects")}>
               Projects
             </Button>
-            <Button marginBottom={4} onClick={() => scrollTo("experience")}>
-              Experience
-            </Button>
             <Button marginBottom={4} onClick={() => scrollTo("skills")}>
               Skills
             </Button>
