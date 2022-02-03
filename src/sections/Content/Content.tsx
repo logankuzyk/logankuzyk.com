@@ -1,9 +1,9 @@
 import React from "react";
 import { Flex, Text, Heading } from "@chakra-ui/react";
 
-import { useNavigationContext } from "../../NavigationContext";
+import { useNavigationContext } from "../../components/NavigationContext";
 import { Section } from "./Section";
-import { Projects } from "./Projects";
+import { Projects } from "../Projects/Projects";
 
 export const Content: React.FC = () => {
   const {

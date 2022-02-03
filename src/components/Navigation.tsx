@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 
-import { useNavigationContext } from "../NavigationContext";
+import { useNavigationContext } from "./NavigationContext";
 
 export const Navigation: React.FC = () => {
   const iconHeight = 48;

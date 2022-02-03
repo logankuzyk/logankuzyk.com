@@ -3,7 +3,7 @@ import { Button, Flex, Text } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 
 import { BackgroundImage } from "./BackgroundImage";
-import { useNavigationContext } from "../../NavigationContext";
+import { useNavigationContext } from "../../components/NavigationContext";
 
 interface BackgroundProps {
   children: React.ReactNode;

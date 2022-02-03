@@ -2,11 +2,11 @@ import React from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClientProvider, QueryClient } from "react-query";
 
-import { NavigationProvider } from "./NavigationContext";
+import { NavigationProvider } from "./components/NavigationContext";
 import { theme } from "./theme";
 import { Navigation } from "./components/Navigation";
-import { Header } from "./components/Landing/Header";
-import { Content } from "./components/Content/Content";
+import { Header } from "./sections/Landing/Header";
+import { Content } from "./sections/Content/Content";
 
 export const App: React.FC = () => {
   const client = new QueryClient();
