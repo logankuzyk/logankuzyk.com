@@ -6,9 +6,9 @@ import React, {
   useMemo,
 } from "react";
 
-export type SectionRef = React.MutableRefObject<HTMLDivElement | null> | null;
+type SectionRef = React.MutableRefObject<HTMLDivElement | null> | null;
 
-export interface Refs {
+interface Refs {
   navigation: SectionRef;
   projects: SectionRef;
   skills: SectionRef;
@@ -21,7 +21,7 @@ interface NavigationContextValue {
   scrollToContent: () => void;
 }
 
-export const NavigationContext = createContext<NavigationContextValue>({
+const NavigationContext = createContext<NavigationContextValue>({
   refs: {
     navigation: null,
     projects: null,
