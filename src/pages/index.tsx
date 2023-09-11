@@ -30,10 +30,24 @@ export const getStaticProps: GetStaticProps<{
   const projectsSnapshot = await get(child(dbRef, "projects"));
   const projectsNoRepos = projectsSnapshot.val() as Omit<Project, "repo">[];
   const projects = (await Promise.all(
-    projectsNoRepos.map(async (project) => ({
-      ...project,
-      repo: await fetchRepository(project.repoName),
-    }))
+    projectsNoRepos.map(async (project) => {
+      const repo = await fetchRepository(project.repoName);
+
+      if (!project.image) {
+        return {
+          ...project,
+          repo,
+        };
+      } else {
+        return {
+          ...project,
+          repo,
+          image: await getStoredImage(
+            "images/projects/" + project.repoName + "/" + project.image
+          ),
+        };
+      }
+    })
   )) as Project[];
 
   const skillsSnapshot = await get(child(dbRef, "skills"));
