@@ -1,5 +1,5 @@
-import React, { useMemo } from "react";
 import Image from "next/image";
+import React, { useMemo } from "react";
 
 type ImageMetadata = {
   description: string;
@@ -22,10 +22,10 @@ export const BackgroundImage: React.FC = () => {
 
   return (
     <Image
-      src={image.src}
       alt={image.description}
-      layout="fill"
       className="block object-cover object-center"
+      layout="fill"
+      src={image.src}
     />
   );
 };

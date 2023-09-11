@@ -1,13 +1,14 @@
+import { ref, get, child } from "firebase/database";
+import { initFlowbite } from "flowbite";
+import { GetStaticProps, InferGetStaticPropsType } from "next";
+import { useEffect } from "react";
+
 import { Content } from "@src/components/Content";
 import { Header } from "@src/components/Header";
 import { Navigation } from "@src/components/Navigation";
 import { NavigationProvider } from "@src/contexts/NavigationContext";
+import { db } from "@src/firebase";
 import { Repository, Project, Skill } from "@src/types";
-import { db, storage } from "@src/firebase";
-import { initFlowbite } from "flowbite";
-import { GetStaticProps, InferGetStaticPropsType } from "next";
-import { useEffect } from "react";
-import { ref, get, child } from "firebase/database";
 import { getStoredImage } from "@src/util";
 
 const fetchRepository = async (name: string): Promise<Repository> => {
@@ -21,14 +22,19 @@ const fetchRepository = async (name: string): Promise<Repository> => {
 };
 
 export const getStaticProps: GetStaticProps<{
-  repositories: Repository[];
   projects: Project[];
   skills: Skill[];
 }> = async () => {
   const dbRef = ref(db);
 
   const projectsSnapshot = await get(child(dbRef, "projects"));
-  const projects = projectsSnapshot.val() as Project[];
+  const projectsNoRepos = projectsSnapshot.val() as Omit<Project, "repo">[];
+  const projects = (await Promise.all(
+    projectsNoRepos.map(async (project) => ({
+      ...project,
+      repo: await fetchRepository(project.repoName),
+    }))
+  )) as Project[];
 
   const skillsSnapshot = await get(child(dbRef, "skills"));
   const skillsNoImages = skillsSnapshot.val() as Skill[];
@@ -43,18 +49,10 @@ export const getStaticProps: GetStaticProps<{
     })
   );
 
-  const repositories = await Promise.all(
-    projects.map((project) => fetchRepository(project.repoName))
-  );
-  // get projects from firebase
-  // get repositories from github
-  // get skills from firebase
-
-  return { props: { repositories, projects, skills } };
+  return { props: { projects, skills } };
 };
 
 export default function Home({
-  repositories,
   projects,
   skills,
 }: InferGetStaticPropsType<typeof getStaticProps>) {

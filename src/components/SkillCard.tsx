@@ -1,7 +1,8 @@
-import React from "react";
 import Image from "next/image";
+import React from "react";
 
 import { Skill } from "@src/types";
+
 import { Card } from "./Card";
 
 export const SkillCard: React.FC<Skill> = ({ title, description, image }) => {
@@ -11,14 +12,14 @@ export const SkillCard: React.FC<Skill> = ({ title, description, image }) => {
         {image && (
           <Image
             alt={`Image for ${title}`}
+            height="50"
             src={image}
-            width={50}
-            height={50}
+            width="50"
           />
         )}
         <div className="flex flex-col gap-2">
           <h2>{title}</h2>
-          {/* <Text>{description}</Text> */}
+          <p>{description}</p>
         </div>
       </div>
     </Card>

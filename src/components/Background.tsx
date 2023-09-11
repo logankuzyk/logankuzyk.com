@@ -3,8 +3,9 @@
 import React from "react";
 import { ChevronDown } from "react-feather";
 
-import { BackgroundImage } from "./BackgroundImage";
 import { useNavigationContext } from "@src/contexts/NavigationContext";
+
+import { BackgroundImage } from "./BackgroundImage";
 
 interface BackgroundProps {
   children: React.ReactNode;

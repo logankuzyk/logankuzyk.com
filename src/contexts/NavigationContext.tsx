@@ -17,6 +17,7 @@ interface Refs {
 
 interface NavigationContextValue {
   refs: Refs;
+  /* eslint-disable */
   scrollTo: (section: keyof Refs) => void;
   scrollToContent: () => void;
 }

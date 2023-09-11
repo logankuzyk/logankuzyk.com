@@ -7,7 +7,7 @@ interface LinkProps {
 
 export const Link: React.FC<LinkProps> = ({ children, href }) => {
   return (
-    <a href={href} target="_blank" rel="noreferrer">
+    <a href={href} rel="noreferrer" target="_blank">
       <div className="flex items-center justify-center gap-2 bg-gray-200 p-2 rounded-full">
         {children}
       </div>

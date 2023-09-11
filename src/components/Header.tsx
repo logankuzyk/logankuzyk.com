@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 import { Background } from "./Background";
@@ -14,10 +15,11 @@ export const Header: React.FC = () => {
         </p>
       </div>
       <div className="flex">
-        <img
-          src="https://github.com/logankuzyk.png"
+        <Image
           alt="Logan's GitHub profile picture."
           className="rounded-full"
+          height="144"
+          src="https://github.com/logankuzyk.png"
           width="144"
         />
       </div>

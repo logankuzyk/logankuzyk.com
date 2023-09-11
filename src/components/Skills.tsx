@@ -1,7 +1,8 @@
 import React from "react";
 
-import { SkillCard } from "./SkillCard";
 import { Skill } from "@src/types";
+
+import { SkillCard } from "./SkillCard";
 
 interface SkillsProps {
   skills: Skill[];

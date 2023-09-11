@@ -1,12 +1,14 @@
 import React from "react";
 
 import { useNavigationContext } from "../contexts/NavigationContext";
-import { Section } from "./Section";
-import { Projects } from "./Projects";
-import { Footer } from "./Footer";
-import { Skills } from "./Skills";
-import { Connect } from "./Connect";
 import { Project, Skill } from "@src/types";
+
+import { Connect } from "./Connect";
+import { Footer } from "./Footer";
+import { Projects } from "./Projects";
+import { Section } from "./Section";
+import { Skills } from "./Skills";
+
 
 interface ContentProps {
   projectsData: Project[];
