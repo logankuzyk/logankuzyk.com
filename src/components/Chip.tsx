@@ -1,7 +1,7 @@
 import React from "react";
 
 interface ChipProps {
-  children: string;
+  children: React.ReactNode;
 }
 
 export const Chip: React.FC<ChipProps> = ({ children }) => {
