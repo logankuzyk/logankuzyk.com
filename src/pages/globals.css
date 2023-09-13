@@ -3,25 +3,41 @@
 @import "tailwindcss/utilities";
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --nord-fg0: #2e3440;
+  --nord-fg1: #3b4252;
+  --nord-fg2: #434c5e;
+  --nord-fg3: #4c566a;
+
+  --nord-bg0: #eceff4;
+  --nord-bg1: #e5e9f0;
+  --nord-bg2: #d8dee9;
+
+  --nord-teal: #8fbcbb;
+  --nord-aqua: #88c0d0;
+  --nord-blue-light: #81a1c1;
+  --nord-blue-dark: #5e81ac;
+
+  --nord-red: #bf616a;
+  --nord-orange: #d08770;
+  --nord-yellow: #ebcb8b;
+  --nord-green: #a3be8c;
+  --nord-purple: #b48ead;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --nord-bg0: #4c566a;
+    --nord-bg1: #434c5e;
+    --nord-bg2: #3b4252;
+    --nord-bg3: #2e3440;
+
+    --nord-fg0: #eceff4;
+    --nord-fg1: #e5e9f0;
+    --nord-fg2: #d8dee9;
   }
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: var(--nord-fg0);
+  background-color: var(--nord-bg0);
 }
