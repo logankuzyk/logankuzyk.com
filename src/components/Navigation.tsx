@@ -1,28 +1,17 @@
-import React, { useEffect, useCallback, useState } from "react";
-import {
-  Drawer,
-  DrawerBody,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  useDisclosure,
-  IconButton,
-  Button,
-  Flex,
-  Text,
-} from "@chakra-ui/react";
-import { HamburgerIcon } from "@chakra-ui/icons";
+"use client";
 
-import { useNavigationContext } from "./NavigationContext";
+import classNames from "classnames";
+import { Button } from "flowbite-react";
+import React, { useEffect, useCallback, useState } from "react";
+import { Menu, X } from "react-feather";
+
+import { useNavigationContext } from "../contexts/NavigationContext";
 
 export const Navigation: React.FC = () => {
-  const iconHeight = 48;
   const {
     refs: { navigation },
     scrollTo,
   } = useNavigationContext();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [isAboveImage, setIsAboveImage] = useState<boolean>(true);
   const handleScroll = useCallback(() => {
     const scrollPosition = window.scrollY;
@@ -40,60 +29,65 @@ export const Navigation: React.FC = () => {
   }, [handleScroll]);
 
   return (
-    <Flex
+    <div
+      className={`transition-all duration-200 ease-in-out fixed p-4 w-screen ${
+        isAboveImage ? "bg-transparent" : "shadow-md bg-nord-bg2"
+      } z-10`}
       ref={navigation}
-      transition="all 0.5s ease"
-      position="fixed"
-      padding={4}
-      width="100vw"
-      bg={isAboveImage ? "rgba(0,0,0,0)" : "gray.100"}
-      zIndex={1}
-      boxShadow={isAboveImage ? "" : "md"}
     >
-      <Flex
-        flexDirection="row"
-        alignItems="center"
-        justifyContent="space-between"
-        width="100%"
+      <div
+        className={classNames(
+          "flex flex-row items-center justify-between w-full text-xl font-semibold",
+          {
+            "text-transparent": isAboveImage,
+          }
+        )}
       >
-        <IconButton
-          display="flex"
-          _hover={{ color: isAboveImage ? "gray.300" : "gray.700" }}
-          _active={{ color: isAboveImage ? "gray.500" : "gray.500" }}
-          onClick={onOpen}
-          variant="ghost"
-          color={isAboveImage ? "gray.100" : "gray.900"}
-          aria-label="Open drawer"
-          icon={<HamburgerIcon fontSize={iconHeight} />}
-          zIndex={2}
-        />
-        <Text
-          display="flex"
-          color={isAboveImage ? "rgba(0,0,0,0)" : "gray.900"}
-          fontSize="xl"
-          fontWeight="semibold"
+        <button
+          aria-controls="drawer"
+          className={classNames({
+            "text-nord-6": isAboveImage,
+          })}
+          data-drawer-target="drawer"
+          data-drawer-toggle="drawer"
+          type="button"
         >
+          <Menu />
+        </button>
+        <span className="transition-all duration-200 ease-in-out">
           Logan Kuzyk
-        </Text>
-      </Flex>
-      <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader>Navigation</DrawerHeader>
-          <DrawerBody display="flex" flexDirection="column">
-            <Button marginBottom={4} onClick={() => scrollTo("projects")}>
-              Projects
-            </Button>
-            <Button marginBottom={4} onClick={() => scrollTo("skills")}>
-              Skills
-            </Button>
-            <Button marginBottom={4} onClick={() => scrollTo("connect")}>
-              Contact
-            </Button>
-          </DrawerBody>
-        </DrawerContent>
-      </Drawer>
-    </Flex>
+        </span>
+      </div>
+
+      <div
+        aria-labelledby="drawer-label"
+        className="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform -translate-x-full w-80 bg-nord-bg1 shadow-md"
+        id="drawer"
+      >
+        <h5
+          className="inline-flex items-center mb-4 text-base font-semibold"
+          id="drawer-label"
+        >
+          Navigation
+        </h5>
+        <button
+          aria-controls="drawer"
+          className="bg-nord-bg1 hover:brightness-90 active:brightness-75 duration-200 ease-in-out rounded-lg text-sm w-8 h-8 absolute top-2.5 right-2.5 inline-flex items-center justify-center"
+          data-drawer-hide="drawer"
+          type="button"
+        >
+          <X />
+        </button>
+        <Button className="mb-4 w-full" onClick={() => scrollTo("projects")}>
+          Projects
+        </Button>
+        <Button className="mb-4 w-full" onClick={() => scrollTo("skills")}>
+          Skills
+        </Button>
+        <Button className="mb-4 w-full" onClick={() => scrollTo("connect")}>
+          Contact
+        </Button>
+      </div>
+    </div>
   );
 };

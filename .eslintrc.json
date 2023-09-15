@@ -1,0 +1,36 @@
+{
+  "plugins": ["react", "import"],
+  "extends": ["eslint:recommended", "next/core-web-vitals"],
+  "rules": {
+    "react/jsx-sort-props": [
+      "error",
+      { "shorthandLast": true, "callbacksLast": true }
+    ],
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+
+    "import/newline-after-import": "error",
+    "import/order": [
+      "error",
+      {
+        "alphabetize": { "order": "asc", "caseInsensitive": true },
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          "unknown"
+        ],
+        "newlines-between": "always",
+        "pathGroups": [
+          { "pattern": "@components/**", "group": "parent" },
+          { "pattern": "@src/**", "group": "parent" },
+          { "pattern": "@store/**", "group": "parent" }
+        ],
+        "pathGroupsExcludedImportTypes": ["builtin"]
+      }
+    ]
+  }
+}

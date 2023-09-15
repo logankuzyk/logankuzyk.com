@@ -1,0 +1,7 @@
+[
+  {
+    "origin": ["logankuzyk.com", "localhost"],
+    "method": ["GET"],
+    "maxAgeSeconds": 3600
+  }
+]

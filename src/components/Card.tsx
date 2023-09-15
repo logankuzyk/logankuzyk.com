@@ -1,19 +1,13 @@
 import React from "react";
-import { Flex } from "@chakra-ui/react";
 
-export const Card: React.FC = ({ children }) => {
+interface CardProps {
+  children: React.ReactNode;
+}
+
+export const Card: React.FC<CardProps> = ({ children }) => {
   return (
-    <Flex
-      flexDirection="column"
-      rowGap={2}
-      borderRadius={8}
-      borderColor="gray.200"
-      borderWidth={1}
-      padding={6}
-      boxShadow="lg"
-      flexWrap="wrap"
-    >
+    <div className="flex flex-col gap-y-2 rounded-lg border border-nord-bg2 p-6 shadow-lg flex-wrap bg-nord-bg0">
       {children}
-    </Flex>
+    </div>
   );
 };
