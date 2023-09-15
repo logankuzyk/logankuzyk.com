@@ -9,7 +9,6 @@ import { Projects } from "./Projects";
 import { Section } from "./Section";
 import { Skills } from "./Skills";
 
-
 interface ContentProps {
   projectsData: Project[];
   skillsData: Skill[];
@@ -26,15 +25,21 @@ export const Content: React.FC<ContentProps> = ({
   return (
     <div className="flex flex-col items-left justify-center gap-y-4 p-16">
       <Section>
-        <h1 ref={projects}>Projects</h1>
+        <h1 className="text-3xl font-bold" ref={projects}>
+          Projects
+        </h1>
         <Projects projects={projectsData} />
       </Section>
       <Section>
-        <h1 ref={skills}>Skills</h1>
+        <h1 className="text-3xl font-bold" ref={skills}>
+          Skills
+        </h1>
         <Skills skills={skillsData} />
       </Section>
       <Section>
-        <h1 ref={connect}>Connect</h1>
+        <h1 className="text-3xl font-bold" ref={connect}>
+          Connect
+        </h1>
         <Connect />
       </Section>
       <Footer />

@@ -7,10 +7,10 @@ export const Header: React.FC = () => {
   return (
     <Background>
       <div className="flex flex-col p-12 text-center">
-        <h1 className="text-6xl text-gray-100 font-semibold text-shadow">
+        <h1 className="text-6xl text-nord-5 font-semibold [text-shadow:_var(--nord-2)_2px_2px]">
           Logan Kuzyk
         </h1>
-        <p className="text-2xl text-gray-200 text-shadow">
+        <p className="text-2xl text-nord-5 text-shadow [text-shadow:_var(--nord-2)_2px_2px]">
           Computer Science Student
         </p>
       </div>

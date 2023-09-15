@@ -23,7 +23,7 @@ export const BackgroundImage: React.FC = () => {
   return (
     <Image
       alt={image.description}
-      className="block object-cover object-center"
+      className="block object-cover object-center brightness-50"
       layout="fill"
       src={image.src}
     />

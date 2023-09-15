@@ -21,13 +21,13 @@ export const Background: React.FC<BackgroundProps> = ({ children }) => {
         {/* Background image */}
         <BackgroundImage />
         {/* Overlay */}
-        <div className="absolute w-full h-full flex flex-col justify-center bg-opacity-50 bg-black">
+        <div className="absolute w-full h-full flex flex-col justify-center">
           {/* Content container */}
           <div className="flex items-center justify-center flex-row flex-wrap-reverse">
             {children}
           </div>
           <button
-            className="absolute flex self-center bottom-4 transition-colors hover:text-gray-300 active:text-gray-500 text-gray-100"
+            className="absolute flex self-center bottom-4 transition-all hover:brightness-90 active:brightness-75 text-nord-6 duration-200 ease-in-out"
             onClick={scrollToContent}
           >
             <div className="flex flex-col justify-center items-center">
