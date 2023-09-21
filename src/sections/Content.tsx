@@ -1,12 +1,12 @@
 import React from "react";
 
+import { Section } from "../components/Section";
 import { useNavigationContext } from "../contexts/NavigationContext";
 import { Project, Skill } from "@src/types";
 
 import { Connect } from "./Connect";
 import { Footer } from "./Footer";
 import { Projects } from "./Projects";
-import { Section } from "./Section";
 import { Skills } from "./Skills";
 
 interface ContentProps {

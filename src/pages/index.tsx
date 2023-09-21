@@ -3,11 +3,11 @@ import { initFlowbite } from "flowbite";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { useEffect } from "react";
 
-import { Content } from "@src/components/Content";
-import { Header } from "@src/components/Header";
 import { Navigation } from "@src/components/Navigation";
 import { NavigationProvider } from "@src/contexts/NavigationContext";
 import { db } from "@src/firebase";
+import { Content } from "@src/sections/Content";
+import { Header } from "@src/sections/Header";
 import { Repository, Project, Skill } from "@src/types";
 import { getStoredImage, notEmpty } from "@src/util";
 

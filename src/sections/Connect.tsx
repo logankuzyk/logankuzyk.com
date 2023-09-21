@@ -1,7 +1,7 @@
 import React from "react";
 import { Mail, GitHub, Gitlab, Linkedin } from "react-feather";
 
-import { Chip } from "./Chip";
+import { Chip } from "../components/Chip";
 
 export const Connect: React.FC = () => {
   return (
