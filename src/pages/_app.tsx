@@ -7,7 +7,7 @@ import { AppProps } from "next/app";
 import Script from "next/script";
 import { useEffect } from "react";
 
-import { theme } from "./theme";
+import { theme } from "../theme";
 
 export const metadata: Metadata = {
   title: "Create Next App",
