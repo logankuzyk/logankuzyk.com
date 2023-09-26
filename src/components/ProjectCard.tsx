@@ -1,5 +1,6 @@
+import { Button } from "flowbite-react";
 import React from "react";
-import GitHubButton from "react-github-btn";
+import { GitHub } from "react-feather";
 
 import { Project } from "@src/types";
 
@@ -26,9 +27,12 @@ export const ProjectCard: React.FC<Project> = ({
       </div>
       <p>{description}</p>
       <div className="flex items-center">
-        <div>
-          <GitHubButton href={repoLink}>Repository</GitHubButton>
-        </div>
+        <Button color="nord">
+          <a className="flex items-center" href={repoLink} target="blank">
+            <GitHub className="w-4 h-4 mr-2" />
+            <span>View on GitHub</span>
+          </a>
+        </Button>
       </div>
     </Card>
   );
