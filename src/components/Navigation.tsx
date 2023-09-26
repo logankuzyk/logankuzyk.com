@@ -61,7 +61,7 @@ export const Navigation: React.FC = () => {
 
       <div
         aria-labelledby="drawer-label"
-        className="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform -translate-x-full w-80 bg-nord-bg1 shadow-md"
+        className="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform -translate-x-full w-80 bg-nord-bg0 border-r border-nord-bg2 shadow-md"
         id="drawer"
       >
         <h5
@@ -72,19 +72,31 @@ export const Navigation: React.FC = () => {
         </h5>
         <button
           aria-controls="drawer"
-          className="bg-nord-bg1 hover:brightness-90 active:brightness-75 duration-200 ease-in-out rounded-lg text-sm w-8 h-8 absolute top-2.5 right-2.5 inline-flex items-center justify-center"
+          className="rounded-lg text-sm w-8 h-8 absolute top-2.5 right-2.5 inline-flex items-center justify-center transition-all duration-200 ease-in-out bg-nord-bg0 hover:bg-nord-bg1 hover:shadow-lg hover:border hover:border-nord-bg2"
           data-drawer-hide="drawer"
           type="button"
         >
           <X />
         </button>
-        <Button className="mb-4 w-full" onClick={() => scrollTo("projects")}>
+        <Button
+          className="mb-4 w-full"
+          color="nord"
+          onClick={() => scrollTo("projects")}
+        >
           Projects
         </Button>
-        <Button className="mb-4 w-full" onClick={() => scrollTo("skills")}>
+        <Button
+          className="mb-4 w-full"
+          color="nord"
+          onClick={() => scrollTo("skills")}
+        >
           Skills
         </Button>
-        <Button className="mb-4 w-full" onClick={() => scrollTo("connect")}>
+        <Button
+          className="mb-4 w-full"
+          color="nord"
+          onClick={() => scrollTo("connect")}
+        >
           Contact
         </Button>
       </div>

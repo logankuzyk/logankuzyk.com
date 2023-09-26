@@ -1,12 +1,12 @@
 import React from "react";
 import { Mail, GitHub, Gitlab, Linkedin } from "react-feather";
 
-import { Chip } from "./Chip";
+import { Chip } from "../components/Chip";
 
 export const Connect: React.FC = () => {
   return (
     <div className="flex flex-row flex-wrap gap-2 text-sm">
-      <Chip>
+      <Chip clickable>
         <a
           className="flex items-center"
           href="mailto:logan@kuzyk.net"
@@ -16,7 +16,7 @@ export const Connect: React.FC = () => {
           <span>logan@kuzyk.net</span>
         </a>
       </Chip>
-      <Chip>
+      <Chip clickable>
         <a
           className="flex items-center"
           href="https://github.com/logankuzyk"
@@ -26,7 +26,7 @@ export const Connect: React.FC = () => {
           <span>GitHub</span>
         </a>
       </Chip>
-      <Chip>
+      <Chip clickable>
         <a
           className="flex items-center"
           href="https://gitlab.com/logankuzyk"
@@ -36,7 +36,7 @@ export const Connect: React.FC = () => {
           <span>GitLab</span>
         </a>
       </Chip>
-      <Chip>
+      <Chip clickable>
         <a
           className="flex items-center"
           href="https://www.linkedin.com/in/logan-kuzyk-90648b132"

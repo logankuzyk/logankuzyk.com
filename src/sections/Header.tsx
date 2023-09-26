@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-import { Background } from "./Background";
+import { Background } from "../components/Background";
 
 export const Header: React.FC = () => {
   return (
