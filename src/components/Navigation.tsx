@@ -72,7 +72,7 @@ export const Navigation: React.FC = () => {
         </h5>
         <button
           aria-controls="drawer"
-          className="bg-nord-bg1 hover:brightness-90 active:brightness-75 duration-200 ease-in-out rounded-lg text-sm w-8 h-8 absolute top-2.5 right-2.5 inline-flex items-center justify-center"
+          className="rounded-lg text-sm w-8 h-8 absolute top-2.5 right-2.5 inline-flex items-center justify-center transition-all duration-200 ease-in-out bg-nord-bg0 hover:bg-nord-bg1 hover:shadow-lg hover:border hover:border-nord-bg2"
           data-drawer-hide="drawer"
           type="button"
         >
