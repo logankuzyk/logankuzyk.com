@@ -132,3 +132,44 @@ export interface Skill {
   image?: string;
   type: string;
 }
+
+export interface UnsplashProfile {
+  updated_at: string;
+  total_likes: number;
+  total_photos: number;
+  photos: UnsplashPhoto[];
+}
+
+export interface UnsplashStatistics {
+  views: {
+    total: number;
+  };
+}
+
+export interface UnsplashPhoto {
+  id: string;
+  created_at: string;
+  updated_at: string;
+  urls: {
+    raw: string;
+    full: string;
+    regular: string;
+    small: string;
+    thumb: string;
+  };
+  links: {
+    html: string;
+  };
+  likes: number;
+  statistics: {
+    downloads: {
+      total: number;
+    };
+    views: {
+      total: number;
+    };
+    likes: {
+      total: number;
+    };
+  };
+}
