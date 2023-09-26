@@ -1,8 +1,13 @@
 import "./globals.css";
 
+import { initFlowbite } from "flowbite";
+import { Flowbite } from "flowbite-react";
 import type { Metadata } from "next";
 import { AppProps } from "next/app";
 import Script from "next/script";
+import { useEffect } from "react";
+
+import { theme } from "./theme";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -10,6 +15,8 @@ export const metadata: Metadata = {
 };
 
 export default function App({ Component, pageProps }: AppProps) {
+  useEffect(() => initFlowbite(), []);
+
   return (
     <>
       <Script
@@ -26,7 +33,9 @@ export default function App({ Component, pageProps }: AppProps) {
                     });
                 `}
       </Script>
-      <Component {...pageProps} />;
+      <Flowbite theme={theme}>
+        <Component {...pageProps} />;
+      </Flowbite>
     </>
   );
 }

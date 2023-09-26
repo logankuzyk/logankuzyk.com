@@ -1,7 +1,5 @@
 import { ref, get, child } from "firebase/database";
-import { initFlowbite } from "flowbite";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
-import { useEffect } from "react";
 
 import { Navigation } from "@src/components/Navigation";
 import { NavigationProvider } from "@src/contexts/NavigationContext";
@@ -78,8 +76,6 @@ export default function Home({
   projects,
   skills,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  useEffect(() => initFlowbite(), []);
-
   return (
     <NavigationProvider>
       <Navigation />
