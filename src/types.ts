@@ -144,12 +144,19 @@ export interface UnsplashStatistics {
   views: {
     total: number;
   };
+  downloads: {
+    total: number;
+  };
 }
 
 export interface UnsplashPhoto {
   id: string;
   created_at: string;
   updated_at: string;
+  description: string;
+  alt_description: string;
+  height: number;
+  width: number;
   urls: {
     raw: string;
     full: string;

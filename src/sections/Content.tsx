@@ -36,7 +36,7 @@ export const Content: React.FC<ContentProps> = ({
   } = useNavigationContext();
 
   return (
-    <div className="flex flex-col items-left justify-center gap-y-4 p-16">
+    <div className="flex flex-col items-left justify-center gap-y-4 p-16 max-w-full">
       <Section>
         <h1 className="text-3xl font-bold" ref={projects}>
           Projects
