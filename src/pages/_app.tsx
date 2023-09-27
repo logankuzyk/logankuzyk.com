@@ -34,7 +34,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 `}
       </Script>
       <Flowbite theme={theme}>
-        <Component {...pageProps} />;
+        <Component {...pageProps} />
       </Flowbite>
     </>
   );
