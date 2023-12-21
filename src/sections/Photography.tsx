@@ -52,9 +52,9 @@ export const Photography: React.FC<PhotographyProps> = ({
                       width={width}
                     />
                     <div className="flex flex-col absolute h-full w-full text-transparent hover:text-nord-6 hover:bg-black/20 transition-all duration-200 ease-in-out items-center justify-end p-4">
-                      <caption className="flex text-lg font-semibold">
+                      <p className="flex text-lg font-semibold">
                         {photo.description}
-                      </caption>
+                      </p>
                       <a className="underline" href={photo.links.html}>
                         View on Unsplash →
                       </a>
