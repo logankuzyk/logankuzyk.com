@@ -55,7 +55,11 @@ export const Photography: React.FC<PhotographyProps> = ({
                       <p className="flex text-lg font-semibold">
                         {photo.description}
                       </p>
-                      <a className="underline" href={photo.links.html}>
+                      <a
+                        className="underline"
+                        href={photo.links.html}
+                        target="blank"
+                      >
                         View on Unsplash →
                       </a>
                     </div>
