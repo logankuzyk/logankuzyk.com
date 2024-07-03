@@ -3,18 +3,49 @@ import Image from "next/image";
 import React from "react";
 
 import { Card } from "@src/components/Card";
-import { UnsplashPhoto, UnsplashProfile, UnsplashStatistics } from "@src/types";
+import { UnsplashPhoto, UnsplashStatistics } from "@src/types";
 
-interface PhotographyProps {
-  unsplashStats: UnsplashStatistics;
-  unsplashPhotos: UnsplashPhoto[];
-  unsplashProfile: UnsplashProfile;
-}
+// const fetchUnsplashProfile = async (): Promise<UnsplashProfile> => {
+//   const response = await fetch(
+//     `https://api.unsplash.com/users/logankuzyk?client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}&stats=true`
+//   );
+//   if (!response.ok) {
+//     throw new Error(
+//       "Failed to retrieve Unsplash profile - " + response.statusText
+//     );
+//   }
+//   return response.json();
+// };
 
-export const Photography: React.FC<PhotographyProps> = ({
-  unsplashPhotos,
-  unsplashStats,
-}) => {
+const fetchUnsplashPhotos = async (): Promise<UnsplashPhoto[]> => {
+  const response = await fetch(
+    `https://api.unsplash.com/users/logankuzyk/photos?client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}&stats=true`
+  );
+  if (!response.ok) {
+    throw new Error(
+      "Failed to retrieve Unsplash photos - " + response.statusText
+    );
+  }
+  return response.json();
+};
+
+const fetchUnsplashStatistics = async (): Promise<UnsplashStatistics> => {
+  const response = await fetch(
+    `https://api.unsplash.com/users/logankuzyk/statistics?client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`
+  );
+  if (!response.ok) {
+    throw new Error(
+      "Failed to retrieve Unsplash photos - " + response.statusText
+    );
+  }
+  return response.json();
+};
+
+export async function Photography() {
+  // const unsplashProfile = await fetchUnsplashProfile();
+  const unsplashPhotos = await fetchUnsplashPhotos();
+  const unsplashStats = await fetchUnsplashStatistics();
+
   return (
     <div className="flex flex-col gap-y-6">
       <div className="flex flex-col gap-y-6">
@@ -72,4 +103,4 @@ export const Photography: React.FC<PhotographyProps> = ({
       </Card>
     </div>
   );
-};
+}
