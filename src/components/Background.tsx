@@ -30,10 +30,7 @@ export const Background: React.FC<BackgroundProps> = ({ children }) => {
             className="absolute flex self-center bottom-4 transition-all hover:brightness-90 active:brightness-75 text-nord-6 duration-200 ease-in-out"
             onClick={scrollToContent}
           >
-            <div className="flex flex-col justify-center items-center">
-              <span>About me</span>
-              <ChevronDown />
-            </div>
+            <ChevronDown size="36" />
           </button>
         </div>
       </div>
