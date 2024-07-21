@@ -30,9 +30,13 @@ export const Navigation: React.FC = () => {
 
   return (
     <div
-      className={`transition-all duration-200 ease-in-out fixed p-4 w-screen ${
-        isAboveImage ? "bg-transparent" : "shadow-md bg-nord-bg2"
-      } z-10`}
+      className={classNames(
+        "transition-all duration-200 ease-in-out fixed py-4 px-8 w-screen z-10",
+        {
+          "bg-transparent": isAboveImage,
+          "shadow-md bg-nord-bg2": !isAboveImage,
+        }
+      )}
       ref={navigation}
     >
       <div
