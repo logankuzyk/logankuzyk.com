@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <>
+    <html>
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_MEASUREMENT_ID}`}
         strategy="lazyOnload"
@@ -29,7 +29,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           });
         `}
       </Script>
-      <Flowbite theme={theme}>{children}</Flowbite>
-    </>
+      <body>
+        <Flowbite theme={theme}>{children}</Flowbite>
+      </body>
+    </html>
   );
 }
