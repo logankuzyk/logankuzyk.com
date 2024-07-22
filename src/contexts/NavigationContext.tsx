@@ -6,14 +6,21 @@ import React, {
   useMemo,
 } from "react";
 
+type Section =
+  | "navigation"
+  | "projects"
+  | "skills"
+  | "connect"
+  | "photography"
+  | "about_me"
+  | "archive"
+  | "experience";
 type SectionRef = React.MutableRefObject<HTMLDivElement | null> | null;
 
-interface Refs {
-  navigation: SectionRef;
-  projects: SectionRef;
-  skills: SectionRef;
-  connect: SectionRef;
-}
+type Refs = {
+  // eslint-disable-next-line
+  [key in Section]: SectionRef;
+};
 
 interface NavigationContextValue {
   refs: Refs;
@@ -29,9 +36,13 @@ interface NavigationProviderProps {
 const NavigationContext = createContext<NavigationContextValue>({
   refs: {
     navigation: null,
+    about_me: null,
     projects: null,
     skills: null,
+    photography: null,
     connect: null,
+    archive: null,
+    experience: null,
   },
   scrollTo: () => {},
   scrollToContent: () => {},
@@ -48,13 +59,21 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
   const projects = useRef<HTMLDivElement>(null);
   const skills = useRef<HTMLDivElement>(null);
   const connect = useRef<HTMLDivElement>(null);
+  const photography = useRef<HTMLDivElement>(null);
+  const about_me = useRef<HTMLDivElement>(null);
+  const archive = useRef<HTMLDivElement>(null);
+  const experience = useRef<HTMLDivElement>(null);
 
-  const refs = useMemo(
+  const refs: Refs = useMemo(
     () => ({
       navigation,
       projects,
       skills,
       connect,
+      photography,
+      about_me,
+      archive,
+      experience,
     }),
     [navigation, projects, skills, connect]
   );

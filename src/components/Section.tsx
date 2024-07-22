@@ -2,6 +2,7 @@ import React from "react";
 
 interface SectionProps {
   children: React.ReactNode;
+  ref: React.LegacyRef<HTMLDivElement>;
 }
 
 export const Section: React.FC<SectionProps> = ({ children }) => {
