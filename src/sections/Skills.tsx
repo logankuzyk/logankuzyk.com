@@ -30,9 +30,14 @@ export async function Skills() {
 
   return (
     <div className="flex flex-row flex-wrap items-center gap-6">
-      {skills.map((skill) => (
-        <SkillCard key={skill.title} {...skill} />
-      ))}
+      My projects, work experience, and coursework have helped me build a wide
+      range of technical skills. Here you can find most of the technologies I
+      {"'"}ve become comfortable with and the projects where I used them.
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {skills.map((skill) => (
+          <SkillCard key={skill.title} {...skill} />
+        ))}
+      </div>
     </div>
   );
 }
