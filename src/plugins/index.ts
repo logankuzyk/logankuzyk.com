@@ -2,6 +2,7 @@ import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
+import { s3Storage } from '@payloadcms/storage-s3'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { searchPlugin } from '@payloadcms/plugin-search'
 import { Plugin } from 'payload'
@@ -91,4 +92,22 @@ export const plugins: Plugin[] = [
     },
   }),
   payloadCloudPlugin(),
+  s3Storage({
+    collections: {
+      media: {
+        disableLocalStorage: true,
+        prefix: 'media',
+      },
+    },
+    bucket: process.env.R2_BUCKET ?? '',
+    disableLocalStorage: true,
+    config: {
+      credentials: {
+        accessKeyId: process.env.R2_ACCESS_KEY_ID ?? '',
+        secretAccessKey: process.env.R2_SECRET_ACCESS_KEY ?? '',
+      },
+      endpoint: process.env.R2_ENDPOINT,
+      region: process.env.R2_REGION,
+    },
+  }),
 ]

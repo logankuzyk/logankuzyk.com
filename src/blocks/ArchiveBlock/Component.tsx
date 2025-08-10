@@ -1,7 +1,7 @@
 import type { Post, ArchiveBlock as ArchiveBlockProps } from '@/payload-types'
 
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
+import { getPayload, Where } from 'payload'
 import React from 'react'
 import RichText from '@/components/RichText'
 
@@ -26,19 +26,28 @@ export const ArchiveBlock: React.FC<
       else return category
     })
 
+    const clauses: Where[] = [
+      {
+        _status: {
+          equals: 'published',
+        },
+      },
+    ]
+
+    if (flattenedCategories && flattenedCategories.length > 0)
+      clauses.push({
+        categories: {
+          in: flattenedCategories,
+        },
+      })
+
     const fetchedPosts = await payload.find({
       collection: 'posts',
       depth: 1,
       limit,
-      ...(flattenedCategories && flattenedCategories.length > 0
-        ? {
-            where: {
-              categories: {
-                in: flattenedCategories,
-              },
-            },
-          }
-        : {}),
+      where: {
+        and: [...clauses],
+      },
     })
 
     posts = fetchedPosts.docs
