@@ -39,7 +39,7 @@ services:
     restart: unless-stopped
     networks: [app]
     env_file:
-      - .env.postgres
+      - .env.production
     volumes:
       - db_data:/var/lib/postgresql/data
     healthcheck:
@@ -57,7 +57,7 @@ services:
   website:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
       # If your Dockerfile uses multi-stage with a "runner" target, uncomment:
       # target: runner
     restart: unless-stopped
