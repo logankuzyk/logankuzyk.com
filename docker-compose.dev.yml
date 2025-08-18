@@ -1,0 +1,55 @@
+# docker-compose.dev.yml
+
+networks:
+  app:   # internal-only (no nginx in dev)
+
+volumes:
+  # Shares the same named volume as prod (defaults to <folder>_db_data)
+  db_data:
+
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile.postgres
+      args:
+        POSTGRES_VERSION: 17.5-alpine
+    restart: unless-stopped
+    networks: [app]
+    env_file: [.env.production]    # or .env — just keep POSTGRES_* identical
+    ports:
+      - "5435:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  website:
+    image: node:22-alpine
+    restart: unless-stopped
+    networks: [app]
+    env_file:
+      - .env.production           # DATABASE_URL should use host 'postgres'
+    working_dir: /home/node/app
+    command: sh -c "npm install && npm run dev"
+    volumes:
+      - .:/home/node/app     # bind mount source; node_modules will live on host
+    ports:
+      - "3002:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+

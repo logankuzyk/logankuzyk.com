@@ -1,0 +1,61 @@
+# To use this Dockerfile, set `output: 'standalone'` in next.config.js
+# Based on: https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile
+
+FROM node:22-bullseye-slim AS base
+
+# Install dependencies only when needed
+FROM base AS deps
+
+WORKDIR /app
+
+# Install dependencies based on the preferred package manager
+COPY package.json package-lock.json ./
+RUN npm ci --legacy-peer-deps
+
+# Rebuild the source code only when needed
+FROM base AS builder
+WORKDIR /app
+ENV NODE_ENV=production
+# Disable anonymous telemetry during build (optional)
+ENV NEXT_TELEMETRY_DISABLED=1
+
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+ENV SKIP_BUILD_DB=1
+RUN npm run build
+
+# Production image, copy only what we need and run Next
+FROM base AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+# Disable anonymous telemetry at runtime (optional)
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# Create non-root user
+RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nextjs
+
+# Static assets
+# (Remove if your app doesn't have /public)
+COPY --from=builder /app/public ./public
+
+# Ensure Next prerender cache dir exists with correct ownership
+RUN mkdir -p .next && chown nextjs:nodejs .next
+
+# Copy the standalone server output (+ static)
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+
+# Expose the Next server port
+EXPOSE 3000
+ENV PORT=3000
+
+# Optional: lightweight healthcheck (uses busybox wget)
+# Adjust path if you expose a dedicated /healthz
+HEALTHCHECK --interval=30s --timeout=5s --retries=5 CMD wget -q -T 5 -O - http://127.0.0.1:3000/ >/dev/null || exit 1
+
+# Bind to all interfaces in containers
+CMD ["sh","-lc","HOSTNAME=0.0.0.0 node server.js"]
