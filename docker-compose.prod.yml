@@ -1,11 +1,10 @@
-version: '3.8'
-
 networks:
   web:   # internet-facing
   app:   # internal-only
 
 volumes:
   db_data:
+  node_modules:
 
 services:
   nginx:
@@ -47,25 +46,14 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    # ports:
+      # - "5432:5432"
     logging:
       driver: "json-file"
       options: { max-size: "10m", max-file: "3" }
     # Optional: set timezone for logs
     # environment:
     #   TZ: "UTC"
-
-  payload-migrate:
-    build:
-      context: .
-      dockerfile: Dockerfile.prod
-    depends_on:
-      postgres:
-        condition: service_healthy
-    env_file: [.env.production]
-    networks: [app]
-    # re-use the same image/ENV as website
-    command: ["npm","run","payload:migrate"]
-    restart: "no"
 
   website:
     build:
@@ -81,13 +69,12 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-      payload-migrate:
-        condition: service_completed_successfully
     # expose: ["3000"]  # optional; not required for service-to-service
     # Optional hardening:
     read_only: true
     tmpfs:
       - /tmp
+      - /app/.next/cache
     # If your app writes to a specific dir (e.g., .next/cache), mount a tmpfs or a writable volume for it.
     # volumes:
     #   - type: tmpfs

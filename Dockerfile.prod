@@ -1,12 +1,11 @@
 # To use this Dockerfile, set `output: 'standalone'` in next.config.js
 # Based on: https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile
 
-FROM node:22.12.0-alpine AS base
+FROM node:22-bullseye-slim AS base
 
 # Install dependencies only when needed
 FROM base AS deps
-# libc6-compat helps sharp and other native deps
-RUN apk add --no-cache libc6-compat
+
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
@@ -29,9 +28,6 @@ RUN npm run build
 # Production image, copy only what we need and run Next
 FROM base AS runner
 WORKDIR /app
-
-# Install tini for proper signal handling / zombie reaping
-RUN apk add --no-cache tini
 
 ENV NODE_ENV=production
 # Disable anonymous telemetry at runtime (optional)
@@ -60,9 +56,6 @@ ENV PORT=3000
 # Optional: lightweight healthcheck (uses busybox wget)
 # Adjust path if you expose a dedicated /healthz
 HEALTHCHECK --interval=30s --timeout=5s --retries=5 CMD wget -q -T 5 -O - http://127.0.0.1:3000/ >/dev/null || exit 1
-
-# Use tini as PID 1; Next's server.js comes from standalone output
-ENTRYPOINT ["/sbin/tini","--"]
 
 # Bind to all interfaces in containers
 CMD ["sh","-lc","HOSTNAME=0.0.0.0 node server.js"]

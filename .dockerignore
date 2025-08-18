@@ -1,0 +1,12 @@
+.git
+node_modules
+.next
+dist
+coverage
+*.log
+Dockerfile*
+compose*.yml
+.env*
+certs
+backups
+
