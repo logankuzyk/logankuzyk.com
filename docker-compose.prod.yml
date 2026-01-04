@@ -1,81 +1,82 @@
-networks:
-  web:   # internet-facing
-  app:   # internal-only
-
-volumes:
-  db_data:
-  node_modules:
+# Production override for Docker Compose
+# Usage: docker compose --env-file .env.production -f docker-compose.yml -f docker-compose.prod.yml up
 
 services:
+  db-prod:
+    image: postgres:17.5-alpine
+    container_name: db-prod
+    restart: unless-stopped
+    networks:
+      - app_network
+    env_file:
+      - .env.production
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  app-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    container_name: app-prod
+    restart: unless-stopped
+    networks:
+      - app_network
+    env_file:
+      - .env.production
+    depends_on:
+      db-prod:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider --timeout=5 http://localhost:3000 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
   nginx:
     image: nginx:alpine
+    container_name: nginx-prod
     restart: unless-stopped
-    depends_on:
-      - website
-    networks: [web, app]
+    networks:
+      - app_network
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/prod.conf:/etc/nginx/nginx.conf:ro
       - ./certs/logankuzyk.com.pem:/etc/ssl/certs/origin.pem:ro
       - ./certs/logankuzyk.com.key:/etc/ssl/private/origin.key:ro
-    # Optional hardening:
+    depends_on:
+      app-prod:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider --timeout=5 http://localhost || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     read_only: true
     tmpfs:
       - /var/cache/nginx
       - /var/run
       - /tmp
-    # Optional: simple healthcheck (assumes HTTPS works end-to-end)
-    healthcheck:
-      test: ["CMD-SHELL", "wget -q --spider --server-response https://localhost 2>&1 | awk 'NR==1{print $2}' | grep -qE '200|301|302'"]
-      interval: 30s
-      timeout: 5s
-      retries: 5
-
-  postgres:
-    image: postgres:17.5-alpine
-    restart: unless-stopped
-    networks: [app]
-    env_file:
-      - .env.production
-    volumes:
-      - db_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    # ports:
-      # - "5432:5432"
     logging:
       driver: "json-file"
-      options: { max-size: "10m", max-file: "3" }
-    # Optional: set timezone for logs
-    # environment:
-    #   TZ: "UTC"
-
-  website:
-    build:
-      context: .
-      dockerfile: Dockerfile.prod
-      # If your Dockerfile uses multi-stage with a "runner" target, uncomment:
-      # target: runner
-    restart: unless-stopped
-    env_file:
-      - .env.production
-    networks:
-      - app
-    depends_on:
-      postgres:
-        condition: service_healthy
-    # expose: ["3000"]  # optional; not required for service-to-service
-    # Optional hardening:
-    read_only: true
-    tmpfs:
-      - /tmp
-      - /app/.next/cache
-    # If your app writes to a specific dir (e.g., .next/cache), mount a tmpfs or a writable volume for it.
-    # volumes:
-    #   - type: tmpfs
-    #     target: /app/.next/cache
+      options:
+        max-size: "10m"
+        max-file: "3"

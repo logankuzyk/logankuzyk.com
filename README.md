@@ -228,13 +228,97 @@ This command will check for any migrations that have not yet been run and try to
 
 ### Docker
 
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
+This project includes a clean Docker Compose setup supporting both development and production environments with separate Postgres containers and volumes.
 
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
+#### Prerequisites
 
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
+1. Install [Docker](https://www.docker.com) and Docker Compose
+2. Create your environment files:
+   ```bash
+   cp .env.example .env.development
+   cp .env.example .env.production
+   ```
+3. Edit `.env.development` and `.env.production` with your actual values. Make sure:
+   - `.env.development` uses `localhost:5432` for `DATABASE_URI` (since dev server runs on host)
+   - `.env.production` uses `db-prod:5432` for `DATABASE_URI` (since app runs in Docker)
+
+#### Development
+
+Start the development database:
+
+```bash
+docker compose --env-file .env.development -f docker-compose.yml -f docker-compose.dev.yml up -d
+```
+
+Then run the Next.js dev server on your host machine:
+
+```bash
+pnpm dev
+```
+
+The app will be available at:
+- Application: http://localhost:3000
+- Postgres: localhost:5432
+
+View database logs:
+
+```bash
+docker compose --env-file .env.development -f docker-compose.yml -f docker-compose.dev.yml logs -f db-dev
+```
+
+Stop the development database:
+
+```bash
+docker compose --env-file .env.development -f docker-compose.yml -f docker-compose.dev.yml down
+```
+
+Connect to Postgres for debugging:
+
+```bash
+psql -h localhost -p 5432 -U <POSTGRES_USER> -d <POSTGRES_DB>
+```
+
+**Note:** The `DATABASE_URI` in `.env.development` should use `localhost` (not `db-dev`) since the Next.js dev server runs on your host machine and connects to the Postgres container via the exposed port.
+
+#### Production
+
+Build and start the production stack:
+
+```bash
+docker compose --env-file .env.production -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+```
+
+The app will be available via NGINX on ports 80 (HTTP) and 443 (HTTPS).
+
+View logs:
+
+```bash
+docker compose --env-file .env.production -f docker-compose.yml -f docker-compose.prod.yml logs -f
+```
+
+Stop the production stack:
+
+```bash
+docker compose --env-file .env.production -f docker-compose.yml -f docker-compose.prod.yml down
+```
+
+Run database migrations:
+
+```bash
+docker compose --env-file .env.production -f docker-compose.yml -f docker-compose.prod.yml exec app-prod pnpm payload migrate
+```
+
+Rebuild after code changes:
+
+```bash
+docker compose --env-file .env.production -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+```
+
+#### Important Notes
+
+- **Database URIs**: The `DATABASE_URI` in your `.env.development` and `.env.production` files must use the Docker service hostnames (`db-dev` or `db-prod`), not `localhost`. Example: `postgresql://user:pass@db-dev:5432/dbname`
+- **Separate Environments**: Dev and prod use completely separate Postgres containers and volumes, so data is isolated between environments
+- **Hot Reload**: Development mode uses bind-mounted source code for hot reload. Production uses a built image with no source bind mounts
 
 ### Seed
 

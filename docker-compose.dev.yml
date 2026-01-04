@@ -1,28 +1,23 @@
-# docker-compose.dev.yml
-
-networks:
-  app:   # internal-only (no nginx in dev)
-
-volumes:
-  # Shares the same named volume as prod (defaults to <folder>_db_data)
-  db_data:
+# Development override for Docker Compose
+# Usage: docker compose --env-file .env.development -f docker-compose.yml -f docker-compose.dev.yml up
+# This only starts the Postgres database container.
+# Run the Next.js dev server on your host with: pnpm dev
 
 services:
-  postgres:
-    build:
-      context: .
-      dockerfile: Dockerfile.postgres
-      args:
-        POSTGRES_VERSION: 17.5-alpine
+  db-dev:
+    image: postgres:17.5-alpine
+    container_name: db-dev
     restart: unless-stopped
-    networks: [app]
-    env_file: [.env.production]    # or .env — just keep POSTGRES_* identical
+    networks:
+      - app_network
+    env_file:
+      - .env.development
     ports:
-      - "5435:5432"
+      - "5432:5432"
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - postgres_dev_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-postgres}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -31,25 +26,3 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
-
-  website:
-    image: node:22-alpine
-    restart: unless-stopped
-    networks: [app]
-    env_file:
-      - .env.production           # DATABASE_URL should use host 'postgres'
-    working_dir: /home/node/app
-    command: sh -c "npm install && npm run dev"
-    volumes:
-      - .:/home/node/app     # bind mount source; node_modules will live on host
-    ports:
-      - "3002:3000"
-    depends_on:
-      postgres:
-        condition: service_healthy
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-
