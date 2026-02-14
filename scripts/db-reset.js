@@ -16,13 +16,13 @@ rl.question('Type YES to confirm: ', (answer) => {
     try {
       console.log('\nStopping and removing database container with volumes...')
       execSync(
-        'docker-compose --env-file .env.development -f docker-compose.yml -f docker-compose.dev.yml down -v',
+        'docker compose --env-file .env.development -f docker-compose.yml -f docker-compose.dev.yml down -v',
         { stdio: 'inherit' },
       )
 
       console.log('\nStarting fresh database container...')
       execSync(
-        'docker-compose --env-file .env.development -f docker-compose.yml -f docker-compose.dev.yml up -d',
+        'docker compose --env-file .env.development -f docker-compose.yml -f docker-compose.dev.yml up -d',
         { stdio: 'inherit' },
       )
 
